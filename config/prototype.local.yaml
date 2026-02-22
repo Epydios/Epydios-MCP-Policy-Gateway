@@ -1,0 +1,39 @@
+# Local prototype config. Tokens below are development placeholders only; change before any non-local/shared use.
+mode: demo
+
+admin:
+  host: "127.0.0.1"
+  port: 8787
+  admin_token: "dev_admin_token"
+  admin_principal: "human_cli"
+  approver_token: "dev_approver_token"
+  approver_principal: "approver_stub"
+
+sandbox:
+  dir: "./demo_sandbox"
+  shell_allow: ["ls", "pwd", "echo"]
+  shell_require_approval: ["cat"]
+  command_paths: {}
+  subprocess_timeout_seconds: 5.0
+  rlimit_cpu_seconds: 2
+  rlimit_fsize_bytes: 1000000
+  rlimit_as_bytes: 512000000
+  rlimit_nproc: 64
+  rlimit_nofile: 128
+  max_stdout_chars: 20000
+  max_stderr_chars: 20000
+  shell_deny: ["rm", "sudo", "chmod", "chown", "curl", "wget", "ssh", "scp"]
+
+policy:
+  fs_write_requires_approval: true
+
+evidence:
+  path: "./evidence/evidence.jsonl"
+
+approver_stub:
+  enabled: false
+  poll_interval_seconds: 0.5
+  allowed_tools: ["fs.write"]
+  max_risk_tier: "high"
+
+approval_ttl_seconds: 120

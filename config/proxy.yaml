@@ -1,0 +1,42 @@
+mode: proxy
+
+downstream_servers:
+  - name: echo
+    command: ["python3", "demo/downstream_echo_server.py"]
+
+rule_policy:
+  rules:
+    - match: "echo:*"
+      action: "allow"
+      risk_tier: "low"
+      reason_code: "ECHO_ALLOWED"
+
+    # Example: require approval for all proxied tools
+    # - match: "*:*"
+    #   action: "require_approval"
+    #   risk_tier: "high"
+    #   reason_code: "GLOBAL_STEP_UP"
+
+  default_action: "allow"
+  default_risk_tier: "low"
+  default_reason_code: "DEFAULT_ALLOW"
+
+admin:
+  host: "127.0.0.1"
+  port: 8787
+  admin_token: "dev_admin_token"
+  admin_principal: "human_cli"
+  approver_token: "dev_approver_token"
+  approver_principal: "approver_stub"
+
+evidence:
+  path: "./evidence/evidence.jsonl"
+
+approver_stub:
+  enabled: false
+  poll_interval_seconds: 0.5
+  # NOTE: in proxy mode, tools are namespaced: "<server>:<tool>"
+  allowed_tools: ["echo:echo.upper"]
+  max_risk_tier: "high"
+
+approval_ttl_seconds: 120

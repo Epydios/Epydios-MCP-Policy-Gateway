@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aimxs-mcp-gateway"
+version = "0.2.3"
+description = "Epydios/AIMXS MCP policy gateway with boundary-enforced tool calls, step-up approval and evidence logging."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "Epydios Technologies, Inc."}]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.23",
+  "pydantic>=2.0",
+  "PyYAML>=6.0",
+  "typer>=0.12",
+  "requests>=2.31",
+]
+
+[project.scripts]
+aimxs-gateway = "aimxs_gateway.main:main"
+aimxs = "aimxs_cli.cli:app"
+aimxs-approver-stub = "aimxs_approver_stub.stub:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
