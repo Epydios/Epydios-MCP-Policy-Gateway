@@ -1,0 +1,24 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Runtime evidence and sandbox artifacts
+/evidence/*
+!/evidence/.gitkeep
+/demo_sandbox/*
+!/demo_sandbox/.gitkeep
+# OS/editor/build artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+dist/
+build/
+*.egg-info/
+*.log
+.env
+.env.*
+!.env.example
